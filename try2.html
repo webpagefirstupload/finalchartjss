@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="chartreactstyle.css" />-->
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>الرسوم البيانية</title>
+</head>
+
+<body style="background: rgb(207, 253, 245);">
+    <h1
+        style="text-align: center; font-family:'Courier New', Courier, monospace; color: rgb(45, 0, 128); font-weight: 600; padding-top: 20px;">
+        الـــرســـوم الـــبيـــانيـــة</h1>
+    <hr>
+    <div class="col-md-6 offset-md-3 my-5">
+        <div class="card">
+            <div class="card-body">
+                <p style="text-align: right;">القرائات الشهرية المقبولة و غير المقبولة</p>
+                <hr>
+            </div>
+            <div class="card-body">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+
+        <div class="col-md-12 offset-md-0 my-5">
+            <div class="card">
+                <div class="card-body">
+                    <p style="text-align: right;">الـــــــــــردود المحتـــــــــملــــة</p>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <canvas id="chart2"></canvas>
+                </div>
+            </div>
+
+            <div class="col-md-12 offset-md-0 my-5">
+                <div class="card">
+                    <div class="card-body">
+                        <p style="text-align: right;">متـــــوسط الاستــــــــــهـــلاك</p>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="meeChart"></canvas>
+
+                        <button class="btn btn-info" id="pie">pie Chart</button>
+                        <button class="btn btn-success" id="bar">bar Chart</button>
+                        <button class="btn btn-info" id="line">Line Chart</button>
+
+                    </div>
+                </div>
+
+                <div class="col-md-12 offset-md-0 my-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="text-align: right;">تفـــــــاصيل العقـــــود ميــــــاه</p>
+                            <hr>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chart3"></canvas>
+                        </div>
+                    </div>
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+
+
+                    <script>
+                        var ctx = document.getElementById('myChart').getContext("2d");
+                        var chart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ["01/2021", "02/2021", "03/2021", "04/2021", " 05/2021", "06/2021", "07/2021", "08/2021", "09/2021", "10/2021"],
+                                datasets: [{
+                                    label: "مقبول",
+                                    //backgroundColor: ['rgb(0, 99, 132)', 'red', 'rgb(0, 99, 132)', 'red', 'rgb(0, 99, 132)', 'red'],
+                                    backgroundColor: 'rgb(0, 99, 132)',
+                                    //borderWidth: 5,
+                                    hoverBackgroundColor: 'blue',
+                                    data: [5000, 6000, 7000, 8000, 9000, 10000, 14000, 13000, 11000, 100],
+                                    fill: true,
+                                },
+                                {
+                                    label: "مشكوك فيه",
+                                    backgroundColor: 'rgb(200, 0, 0)',
+                                    hoverBackgroundColor: 'red',
+                                    data: [350, 150, 150, 150, 200, 100, 150, 100, 150, 100],
+                                    fill: true,
+                                }]
+                            },
+
+                            options: {
+                                tooltips: {
+                                    mode: 'index',
+                                },
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            usePointStyle: true,
+                                            pointStyle: 'circle'
+                                        }
+                                    }
+                                }
+                                /*scales: {
+                                    x: {
+                                        stacked: true
+                                    },
+                                    y: {
+                                        stacked: true
+                                    }
+                                }*/
+                            }
+                        });
+
+                        //second chart
+                        var ctx2 = document.getElementById('chart2').getContext("2d");
+                        var chart = new Chart(ctx2, {
+                            options: {
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            boxWidth: 0,
+                                        }
+                                    }
+                                }
+                            },
+
+                            type: 'bar',
+                            data: {
+                                labels: ["العداد فاصل", "رصيد سالب", "عمل صيانه بالعداد", "مشكلة استهلاك", "مشكلة بطارية", "البطارية ضعيفة",
+                                    "شاشة لا تعمل ", "يرجى الشحن", "انقطاع مرافق", "تغير الموتور", "لا يوجد مشكلة", "مشكلة كارت",
+                                    "مشكلة احمال", "(علامة قفل ( تلاعب ", "مشكلة موتور", "تنظيف فلتر", "العميل لا يجيد استخدام الكارت",
+                                    "رفع العداد للصيانه", "ٌRestart عمل"],
+                                datasets: [{
+                                    label: "",
+                                    labelColor: 'black',
+                                    backgroundColor: ["blue", 'purple', 'pink', 'black', 'gray', 'aqua', 'coral', 'maroon', 'rosybrown', 'olive'],
+                                    hoverBackgroundColor: 'blue',
+                                    data: [20, 50, 30, 40, 50, 70, 100, 150, 25, 10, 120, 300, 10, 190, 20, 80, 50, 10, 40],
+                                    //fill: true,
+                                }]
+                            },
+                        });
+
+
+                        //third chart
+                        const ctx1 = document.getElementById('meeChart').getContext("2d");
+                        const labels = [
+                            "2013",
+                            "2014",
+                            "2015",
+                            "2016",
+                            "2017",
+                            "2018",
+                            "2019",
+                            "2020",
+                            "2021",
+                        ];
+
+                        //Gradient Fill
+                        let gradient = ctx1.createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, "rgba(58,123,213,1");
+                        gradient.addColorStop(1, "rgba(0,210,255,0.3");
+
+                        let delayed;
+
+                        const data = {
+                            labels,
+                            datasets: [{
+                                data: [211, 326, 165, 350, 420, 370, 500, 375, 415],
+                                label: "",
+                                fill: true,
+                                backgroundColor: gradient,
+                                borderColor: "#fff",
+                                pointBackgroundColor: "rgb(189, 195, 199)",
+                                //tension: 0.4,
+                            },
+                            ],
+                        };
+
+                        const config = {
+                            type: 'line',
+                            data: data,
+                            options: {
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            boxWidth: 0,
+                                        }
+                                    }
+                                },
+                                resposive: true,
+                                hitRadius: 30,
+                                hoverRadius: 10,
+                            }
+                        };
+
+                        const meeChart = new Chart(ctx1, config);
+
+                        const line = document.getElementById('line');
+                        const pie = document.getElementById('pie');
+                        const bar = document.getElementById('bar');
+
+                        line.addEventListener('click', changeline);
+                        pie.addEventListener('click', changepie);
+                        bar.addEventListener('click', changebar);
+
+                        function changeline() {
+                            const updatetype = 'line';
+                            meeChart.config.type = updatetype;
+                            meeChart.update();
+                        };
+
+                        function changepie() {
+                            const updatetype = 'pie';
+                            meeChart.config.type = updatetype;
+                            meeChart.update();
+                        };
+
+                        function changebar() {
+                            const updatetype = 'bar';
+                            meeChart.config.type = updatetype;
+                            meeChart.update();
+                        };
+
+
+                        //final chart
+                        var ctx3 = document.getElementById('chart3').getContext("2d");
+                        var chart = new Chart(ctx3, {
+                            options: {
+                                //circumference: 270,
+                            },
+
+                            type: 'doughnut',
+                            data: {
+                                labels: ['مهيــأة',
+                                    'غيــر مهيــأة',
+                                    'مركــب'],
+                                datasets: [{
+                                    label: "",
+                                    labelColor: 'black',
+                                    backgroundColor: ["olive", 'chocolate', 'rosybrown'],
+                                    hoverOffset: 4,
+                                    data: [24.96, 0.29, 74.76],
+                                }]
+                            },
+                        });
+
+                    </script>
+
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
